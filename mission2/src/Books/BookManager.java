@@ -5,6 +5,16 @@ import java.util.LinkedHashSet;
 
 import exception.*;
 
+/**
+ * {@code BookManager}는 {@code Book}객체에 대한 create, read, delete 기능을 지원한다. <br>
+ * <pre>
+ *     singleton을 통해 생성되는 인스턴스를 하나로 유지하고 LinkedHashSet을 통해
+ *     데이터 셋의 타입을 가변적으로 유지하고
+ *     커스터마이징된 예외를 throw한다.
+ * </pre>
+ * @author 이상민
+ *
+ */
 public class BookManager {
 	// Singleton
 	private static BookManager instance;

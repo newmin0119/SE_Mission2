@@ -8,14 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+/**
+ * {@code BookManagerTest}는 {@code BookManger}객체에 대한 테스트 코드이다.. <br>
+ * @author 이상혁
+ *
+ */
 class BookManagerTest {
 	static private BookManager bookManager;
-	
+
+	//인스턴스 호출
 	@BeforeAll
 	static void setup() throws Exception {
 		bookManager = BookManager.getInstance();
 	}
 
+	//addBook 테스트코드
 	@Test
 	void testAddBook() {
 		System.out.println("addBook 테스트 시작.");
@@ -41,7 +48,8 @@ class BookManagerTest {
 
 		System.out.println("addBook 테스트 종료.");
 	}
-	
+
+	//searchBook 테스트
 	@Test
 	void testSearchBook() {
 		System.out.println("searchBook 테스트 시작.");
@@ -64,7 +72,7 @@ class BookManagerTest {
 		System.out.println("searchBook 테스트 종료.");
 	}
 	
-	
+	//removeBook 테스트
 	@Test
 	void testRemoveBook() {
 		System.out.println("removeBook 테스트 시작.");

@@ -16,15 +16,7 @@ public class Book{
     public int getId() {
         return id;
     }
-    public String getTitle() {
-        return title;
-    }
-    public String getAuthor() {
-        return author;
-    }
-    public int getYear() {
-        return year;
-    }
+
     public String getInfoStr() {
         return String.format(
                 "Book{id: '%d', 제목: '%s', 저자: '%s', 출판년도: %d}",
