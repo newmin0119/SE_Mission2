@@ -6,6 +6,7 @@ import exception.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,12 +15,11 @@ import org.junit.jupiter.api.Test;
  *
  */
 class BookManagerTest {
-	static private BookManager bookManager;
+	private BookManager bookManager;
 
-	//인스턴스 호출
-	@BeforeAll
-	static void setup() throws Exception {
-		bookManager = BookManager.getInstance();
+	@BeforeEach
+	void setup() {
+		bookManager = new BookManager();
 	}
 
 	//addBook 테스트코드
