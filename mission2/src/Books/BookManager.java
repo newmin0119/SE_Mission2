@@ -16,20 +16,9 @@ import exception.*;
  *
  */
 public class BookManager {
-	// Singleton
-	private static BookManager instance;
-	
+
 	// Constructor
-	private BookManager() {};
-	
-	// Instance getter
-	public static BookManager getInstance() {
-		if(instance==null) {
-			instance = new BookManager();
-		}
-		
-		return instance;
-	};
+	public BookManager() {};
 	
 	// bookMap: HashMap Container ( Id -> Book )
 	private Set<Book> bookSet = new LinkedHashSet<Book>();
