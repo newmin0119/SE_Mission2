@@ -62,4 +62,26 @@ public class BookManager {
         }
         return bookList.size();
     }
+
+    // Search Book by binary search with id value.
+    public Book search_bs(int id){
+        int left = 0;
+        int right = bookList.size() - 1;
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            Book mid_book = bookList.get(mid);
+            int mid_id = mid_book.getId();
+
+            if(mid_id == id){
+                return mid_book;
+            }
+            else if(mid_id > id){
+                right = mid - 1;
+            }
+            else if(mid_id < id){
+                left = mid + 1;
+            }
+        }
+        throw new DoesNotExists(id);
+    }
 }
