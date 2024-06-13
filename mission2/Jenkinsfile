@@ -33,7 +33,7 @@ pipeline {
                 script {
                     def classpath = "classes:mission2/lib/junit-platform-console-standalone-1.7.1.jar:classes"
                     // PerformanceTest 클래스 실행
-                    sh "java -Dfile.encoding=UTF-8 -cp ${classpath} PerformanceTest > performance_test.txt"
+                    sh "java -Dfile.encoding=UTF-8 -cp ${classpath} performanceTest.PerformanceTest > performance_test.txt"
                 }
             }
         }
