@@ -1,4 +1,4 @@
-package test;
+package performanceTest;
 
 import Books.Book;
 import Books.BookManager;

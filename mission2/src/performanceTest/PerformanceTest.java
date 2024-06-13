@@ -1,4 +1,5 @@
-package test;
+package performanceTest;
+
 
 public class PerformanceTest {
     private static void test(int minId, int maxId){
