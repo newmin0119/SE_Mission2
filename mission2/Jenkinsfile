@@ -14,7 +14,6 @@ pipeline {
         stage('Build') {
             steps {
                 // Java 파일들을 컴파일하여 생성된 클래스 파일을 classes 디렉토리에 저장
-                // Windows 일 경우 bat, Unix 계열은 sh 사용
                 sh 'javac -encoding UTF-8 -d classes -cp mission2/lib/junit-platform-console-standalone-1.7.1.jar mission2/src/**/*.java'
             }
         }
