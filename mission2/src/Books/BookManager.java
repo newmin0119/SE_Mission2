@@ -1,5 +1,7 @@
 package Books;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.LinkedHashSet;
 
@@ -13,6 +15,7 @@ import exception.*;
  *     커스터마이징된 예외를 throw한다.
  * </pre>
  * @author 이상민
+ * @author 이상혁
  *
  */
 public class BookManager {
@@ -20,32 +23,43 @@ public class BookManager {
 	// Constructor
 	public BookManager() {};
 	
-	// bookMap: HashMap Container ( Id -> Book )
-	private Set<Book> bookSet = new LinkedHashSet<Book>();
+	// bookList: ArrayList Container
+	private List<Book> bookList = new ArrayList<>();
 	
-	// Add Book argument into bookMap
+	// Add Book argument into bookL
     public void addBook(Book book) throws AlreadyExists {
-        if(bookSet.contains(book)){
+        if(bookList.contains(book)){
         	// the book already exists.
         	throw new AlreadyExists(book.getId());
         }
-        bookSet.add(book);
+        bookList.add(indexOfBook(book.getId()),book);
     }
     
     // Search Book by id value.
     public Book searchBook(int id) {
-        for(Book book : bookSet) {
+        for(Book book : bookList) {
             if(book.getId() == id) {
                 return book;
             }
         }
         throw new DoesNotExists(id);
     }
-    
+
+    //remove book by id value.
     public void removeBook(int id) {
-        if(!bookSet.removeIf(book -> book.getId() == id)) {
+        if(!bookList.removeIf(book -> book.getId() == id)) {
         	// removeIf 함수는 삭제한 아이템이 없는 경우 false return.
         	throw new DoesNotExists(id);
         };
+    }
+
+    //find index of book by id number.
+    private int indexOfBook(int id) {
+        for (int i = 0; i < bookList.size(); i++) {
+            if (bookList.get(i).getId() > id) {
+                return i;
+            }
+        }
+        return bookList.size();
     }
 }
