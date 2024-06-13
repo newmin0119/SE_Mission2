@@ -5,7 +5,6 @@ import exception.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,23 +52,55 @@ class BookManagerTest {
 	@Test
 	void testSearchBook() {
 		System.out.println("searchBook 테스트 시작.");
-		
+
+
 		// Test Case
-		Book newBook3 = new Book(3, "newBook3", "Java",2020);
-		bookManager.addBook(newBook3);
-		System.out.println("\t" + newBook3.getInfoStr() + "도서가 추가되었습니다.");
-		
+		for(int i = 0; i < 50; i++) {
+			Book newBook = new Book(i, "newBook" + i, "JUnit", 2000 + i/10);
+			bookManager.addBook(newBook);
+		}
+		Book newBook = new Book(50, "newBook50", "JUnit", 2024);
+		bookManager.addBook(newBook);
+
+		System.out.println("\t" + "도서 50개가 추가되었습니다.");
 		// Normal Case
-		assertEquals(newBook3,bookManager.searchBook(3));
-		System.out.println("\t" + newBook3.getInfoStr() + "도서가 검색되었습니다.");
+		assertEquals(newBook,bookManager.searchBook(50));
+		System.out.println("\t" + newBook.getInfoStr() + "도서가 검색되었습니다.");
 		
 		// Error Case - Not Found
 		RuntimeException exception = assertThrows(DoesNotExists.class,
-			() -> bookManager.searchBook(4)
+			() -> bookManager.searchBook(200)
 		);
 		System.out.println("\t" + exception.getMessage());	
 
 		System.out.println("searchBook 테스트 종료.");
+	}
+
+	@Test
+	void testSearch_bs() {
+		System.out.println("search_bs 테스트 시작.");
+
+
+		// Test Case
+		for(int i = 0; i < 50; i++) {
+			Book newBook = new Book(i, "newBook" + i, "JUnit", 2000 + i/10);
+			bookManager.addBook(newBook);
+		}
+		Book newBook = new Book(50, "newBook50", "JUnit", 2024);
+		bookManager.addBook(newBook);
+
+		System.out.println("\t" + "도서 50개가 추가되었습니다.");
+		// Normal Case
+		assertEquals(newBook,bookManager.search_bs(50));
+		System.out.println("\t" + newBook.getInfoStr() + "도서가 검색되었습니다.");
+
+		// Error Case - Not Found
+		RuntimeException exception = assertThrows(DoesNotExists.class,
+				() -> bookManager.search_bs(200)
+		);
+		System.out.println("\t" + exception.getMessage());
+
+		System.out.println("search_bs 테스트 종료.");
 	}
 	
 	//removeBook 테스트
@@ -78,17 +109,17 @@ class BookManagerTest {
 		System.out.println("removeBook 테스트 시작.");
 		
 		// Test Case
-		Book newBook4 = new Book(4, "newBook4", "Eclipse",2024);
-		bookManager.addBook(newBook4);
-		System.out.println("\t" + newBook4.getInfoStr() + "도서가 추가되었습니다.");
+		Book newBook1 = new Book(1, "newBook1", "JUnit",2000);
+		bookManager.addBook(newBook1);
+		System.out.println("\t" + newBook1.getInfoStr() + "도서가 추가되었습니다.");
 		
 		// Normal Case
-		assertDoesNotThrow(() -> bookManager.removeBook(4));
-		System.out.println("\t" + newBook4.getInfoStr() + "도서가 삭제되었습니다.");
+		assertDoesNotThrow(() -> bookManager.removeBook(1));
+		System.out.println("\t" + newBook1.getInfoStr() + "도서가 삭제되었습니다.");
 		
 		// Error Case - Not Found
 		RuntimeException exception = assertThrows(DoesNotExists.class,
-			() -> bookManager.removeBook(4)
+			() -> bookManager.removeBook(2)
 		);
 		System.out.println("\t" + exception.getMessage());	
 
