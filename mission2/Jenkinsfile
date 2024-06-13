@@ -27,11 +27,21 @@ pipeline {
                 }
             }
         }
+        stage('Performance Test') {
+            steps {
+                // PerformanceTest 실행
+                script {
+                    def classpath = "classes:mission2/lib/junit-platform-console-standalone-1.7.1.jar:classes"
+                    // PerformanceTest 클래스 실행
+                    sh "java -Dfile.encoding=UTF-8 -cp ${classpath} PerformanceTest > performance_test.txt"
+                }
+            }
+        }
     }
     post {
         always {
             // 테스트 결과 파일을 저장하기 위해 아카이브
-            archiveArtifacts artifacts: 'test_results.txt'
+            archiveArtifacts artifacts: 'test_results.txt, performance_test.txt'
         }
         failure {
             echo 'Build or test failed'
