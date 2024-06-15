@@ -2,58 +2,97 @@ package Books;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.LinkedHashSet;
 
 import exception.*;
 
+
 /**
- * {@code BookManager}는 {@code Book}객체에 대한 create, read, delete 기능을 지원한다. <br>
- * <pre>
- *     singleton을 통해 생성되는 인스턴스를 하나로 유지하고 LinkedHashSet을 통해
- *     데이터 셋의 타입을 가변적으로 유지하고
- *     커스터마이징된 예외를 throw한다.
- * </pre>
- * @author 이상민
- * @author 이상혁
+ * The {@code BookManager} class provides methods to manage a list of {@code Book} objects.
+ * It allows adding, searching, and removing books from the list.
+ * <p>
+ * This class ensures that books are managed by their unique identifiers (ids).
+ * Also use arrayList container to save data.
+ * </p>
  *
+ * <pre>
+ * Example usage:
+ * {@code
+ * BookManager manager = new BookManager();
+ * Book book = new Book(1, "software engineer", "SangHyeok", 2010);
+ * manager.addBook(book);
+ * Book foundBook = manager.searchBook(1);
+ * manager.removeBook(1);
+ * }
+ * </pre>
+ *
+ * @see Book
+ * @see AlreadyExistsException
+ * @see DoesNotExistsException
+ *
+ * @author 이상혁
+ * @author 이상민
  */
 public class BookManager {
 
-	// Constructor
-	public BookManager() {};
-	
-	// bookList: ArrayList Container
-	private List<Book> bookList = new ArrayList<>();
-	
-	// Add Book argument into bookL
-    public void addBook(Book book) throws AlreadyExists {
+    /**
+     * List to store book information, using ArrayList.
+     */
+    private List<Book> bookList = new ArrayList<>();
+    /**
+     * Constructs a new {@code BookManager}.
+     */
+	public BookManager() {}
+
+
+    /**
+     * Adds a {@code Book} to the book list.
+     * @param book
+     * @throws AlreadyExistsException
+     */
+    public void addBook(Book book) throws AlreadyExistsException {
         if(bookList.contains(book)){
         	// the book already exists.
-        	throw new AlreadyExists(book.getId());
+        	throw new AlreadyExistsException(book.getId());
         }
         bookList.add(indexOfBook(book.getId()),book);
     }
-    
-    // Search Book by id value.
+
+    /**
+     * Searches for a {@code Book} by its id.
+     *
+     * @param id the id of the book to search for
+     * @return the book with the specified id
+     * @throws DoesNotExistsException if the book with the specified id does not exist
+     */
     public Book searchBook(int id) {
         for(Book book : bookList) {
             if(book.getId() == id) {
                 return book;
             }
         }
-        throw new DoesNotExists(id);
+        throw new DoesNotExistsException(id);
     }
 
-    //remove book by id value.
+    /**
+     * Removes a {@code Book} from the book list by its id.
+     *
+     * @param id the id of the book to remove
+     * @throws DoesNotExistsException if the book with the specified id does not exist
+     */
     public void removeBook(int id) {
         if(!bookList.removeIf(book -> book.getId() == id)) {
         	// removeIf 함수는 삭제한 아이템이 없는 경우 false return.
-        	throw new DoesNotExists(id);
-        };
+        	throw new DoesNotExistsException(id);
+        }
     }
 
-    //find index of book by id number.
+    /**
+     * Finds the index where a book with the specified id should be inserted.
+     * Define by private.
+     *
+     * @param id the id of the book to find the index for
+     * @return the index where the book should be inserted
+     */
     private int indexOfBook(int id) {
         for (int i = 0; i < bookList.size(); i++) {
             if (bookList.get(i).getId() > id) {
@@ -63,7 +102,14 @@ public class BookManager {
         return bookList.size();
     }
 
-    // Search Book by binary search with id value.
+
+    /**
+     * Searches for a {@code Book} using binary search by its id.
+     *
+     * @param id the id of the book to search for
+     * @return the book with the specified id
+     * @throws DoesNotExistsException if the book with the specified id does not exist
+     */
     public Book search_bs(int id){
         int left = 0;
         int right = bookList.size() - 1;
@@ -78,10 +124,10 @@ public class BookManager {
             else if(mid_id > id){
                 right = mid - 1;
             }
-            else if(mid_id < id){
+            else {
                 left = mid + 1;
             }
         }
-        throw new DoesNotExists(id);
+        throw new DoesNotExistsException(id);
     }
 }
