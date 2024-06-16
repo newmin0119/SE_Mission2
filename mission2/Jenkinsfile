@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Java 파일들을 컴파일하여 생성된 클래스 파일을 classes 디렉토리에 저장
-                sh 'javac -encoding UTF-8 -d classes -cp mission2/src/**/*.java'
+                sh 'javac -encoding UTF-8 -d classes -cp mission2/lib/junit-platform-console-standalone-1.7.1.jar mission2/src/**/*.java'
             }
         }
         stage('Test') {
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // PerformanceTest 실행
                 script {
-                    def classpath = "classes"
+                    def classpath = "classes:mission2/lib/junit-platform-console-standalone-1.7.1.jar:classes"
                     // PerformanceTest 클래스 실행
                     sh "java -Dfile.encoding=UTF-8 -cp ${classpath} performanceTest.PerformanceTest > performance_test.txt"
                 }
